@@ -94,5 +94,6 @@ const ROUTES = {
   '#/report': { page: 'report', title: '综合报告' },
   '#/experts': { page: 'experts', title: '专家面板' },
   '#/checkin': { page: 'checkin', title: '每日打卡' },
-  '#/action': { page: 'action', title: '行动中心' }
+  '#/action': { page: 'action', title: '行动中心' },
+  '#/reminders': { page: 'reminders', title: '提醒中心' }
 };

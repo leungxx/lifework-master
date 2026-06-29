@@ -47,6 +47,9 @@ const App = {
 
     // 启动督促检查（每30分钟检查一次）
     this._startNudgeCheck();
+
+    // 检查今日提醒
+    this._checkReminders();
   },
 
   _checkRollover() {
@@ -108,6 +111,18 @@ const App = {
     }, 30 * 60 * 1000);
   },
 
+  _checkReminders() {
+    const todayReminders = Storage.getTodayReminders();
+    if (todayReminders.length > 0) {
+      // 延迟显示，等页面加载完
+      setTimeout(() => {
+        todayReminders.forEach(r => {
+          Toast.warning(`🔔 提醒：${r.title} —— ${r.nextDate}`, 8000);
+        });
+      }, 2000);
+    }
+  },
+
   _renderShell() {
     const appRoot = document.getElementById('app-root');
     appRoot.innerHTML = `
@@ -119,6 +134,7 @@ const App = {
         <div class="page" data-page="experts" id="page-experts"></div>
         <div class="page" data-page="checkin" id="page-checkin"></div>
         <div class="page" data-page="action" id="page-action"></div>
+        <div class="page" data-page="reminders" id="page-reminders"></div>
       </div>
       ${BottomNav.render()}
     `;
@@ -165,6 +181,10 @@ const App = {
       case 'action':
         html = ActionPage.render();
         afterRenderFn = () => ActionPage.afterRender();
+        break;
+      case 'reminders':
+        html = RemindersPage.render();
+        afterRenderFn = () => RemindersPage.afterRender();
         break;
       default:
         html = NotFoundPage.render();

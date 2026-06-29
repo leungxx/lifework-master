@@ -46,6 +46,7 @@ const CONFIG = {
     report: { path: '#/report', title: '综合报告', icon: 'fa-file-alt' },
     experts: { path: '#/experts', title: '专家面板', icon: 'fa-user-md' },
     checkin: { path: '#/checkin', title: '每日打卡', icon: 'fa-calendar-check' },
-    action: { path: '#/action', title: '行动中心', icon: 'fa-bolt' }
+    action: { path: '#/action', title: '行动中心', icon: 'fa-bolt' },
+    reminders: { path: '#/reminders', title: '提醒中心', icon: 'fa-bell' }
   }
 };

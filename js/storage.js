@@ -316,4 +316,48 @@ class Storage {
   static loadRitualLog() {
     return this.load(CONFIG.STORAGE_KEYS.RITUAL_LOG) || {};
   }
+
+  // --- 提醒系统 ---
+  static loadReminders() {
+    const saved = this.load('reminders');
+    if (saved && saved.length > 0) return saved;
+    // 首次加载使用预设提醒
+    const presets = PRESET_REMINDERS.map(r => ({ ...r }));
+    this.save('reminders', presets);
+    return presets;
+  }
+
+  static saveReminders(reminders) {
+    return this.save('reminders', reminders);
+  }
+
+  static addReminder(reminder) {
+    const reminders = this.loadReminders();
+    reminders.push({
+      id: 'r_' + Date.now(),
+      ...reminder
+    });
+    return this.saveReminders(reminders);
+  }
+
+  static deleteReminder(id) {
+    const reminders = this.loadReminders();
+    const filtered = reminders.filter(r => r.id !== id);
+    return this.saveReminders(filtered);
+  }
+
+  // 获取今天需要提醒的事项
+  static getTodayReminders() {
+    const today = new Date();
+    const dateStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+    const reminders = this.loadReminders();
+    return reminders.filter(r => {
+      if (!r.nextDate) return false;
+      // 提醒日 = nextDate - remindBefore
+      const d = new Date(r.nextDate + 'T00:00:00');
+      d.setDate(d.getDate() - (r.remindBefore || 0));
+      const remindDate = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+      return remindDate === dateStr;
+    });
+  }
 }
