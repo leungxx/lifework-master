@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+  <meta name="description" content="LifeWork Master - 个人生活与工作综合管理系统，18位专家为您提供心理健康、生活健康、身体健康、美丽管理、工作效率、目标管理六大维度的专业分析与改善方案">
+  <meta name="theme-color" content="#6366F1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="LifeWork">
+  <title>LifeWork Master - 个人生活与工作综合管理系统</title>
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.json">
+
+  <!-- Apple Touch Icon -->
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+  <!-- AOS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+  <!-- 自定义样式 -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <div id="app-root">
+    <!-- 初始加载状态 -->
+    <div style="display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+      <div class="spinner"></div>
+    </div>
+  </div>
+
+  <!-- Chart.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.umd.min.js"></script>
+
+  <!-- AOS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+  <!-- 应用脚本（按依赖顺序） -->
+  <script src="js/config.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/utils/dom.js"></script>
+  <script src="js/utils/format.js"></script>
+  <script src="js/utils/charts.js"></script>
+  <script src="js/data/dimensions.js"></script>
+  <script src="js/data/experts.js"></script>
+  <script src="js/data/questionnaire.js"></script>
+  <script src="js/data/checkin.js"></script>
+  <script src="js/data/tasks.js"></script>
+  <script src="js/engine/scoring.js"></script>
+  <script src="js/engine/analysis.js"></script>
+  <script src="js/engine/coordinator.js"></script>
+  <script src="js/components/toast.js"></script>
+  <script src="js/components/modal.js"></script>
+  <script src="js/components/progress-ring.js"></script>
+  <script src="js/components/navbar.js"></script>
+  <script src="js/components/bottom-nav.js"></script>
+  <script src="js/components/dimension-card.js"></script>
+  <script src="js/components/expert-card.js"></script>
+  <script src="js/components/checkin-card.js"></script>
+  <script src="js/components/task-card.js"></script>
+  <script src="js/components/pomodoro.js"></script>
+  <script src="js/components/ritual.js"></script>
+  <script src="js/pages/home.js"></script>
+  <script src="js/pages/questionnaire.js"></script>
+  <script src="js/pages/report.js"></script>
+  <script src="js/pages/experts.js"></script>
+  <script src="js/pages/checkin.js"></script>
+  <script src="js/pages/action.js"></script>
+  <script src="js/pages/not-found.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/app.js"></script>
+
+  <!-- PWA 注册 -->
+  <script>
+    // 注册 Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js').then((reg) => {
+          console.log('SW registered:', reg.scope);
+        }).catch((err) => {
+          console.log('SW registration failed:', err);
+        });
+      });
+    }
+
+    // 安装引导 - iOS 和 Android 通用
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      // 显示安装引导
+      showInstallBanner();
+    });
+
+    function showInstallBanner() {
+      // 检查是否已经安装或已关闭过
+      if (window.matchMedia('(display-mode: standalone)').matches) return;
+      if (localStorage.getItem('lwm_pwa_banner_closed')) return;
+
+      const banner = document.createElement('div');
+      banner.id = 'pwa-install-banner';
+      banner.innerHTML = `
+        <div style="position: fixed; bottom: 0; left: 0; right: 0; background: linear-gradient(135deg, #6366F1, #4F46E5); color: white; padding: 16px 20px; z-index: 10001; display: flex; align-items: center; gap: 12px; font-family: 'Inter', sans-serif; box-shadow: 0 -4px 20px rgba(0,0,0,0.2);">
+          <div style="flex-shrink: 0; width: 44px; height: 44px; background: rgba(255,255,255,0.2); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px;">💎</div>
+          <div style="flex: 1; min-width: 0;">
+            <div style="font-weight: 700; font-size: 14px;">添加到主屏幕</div>
+            <div style="font-size: 12px; opacity: 0.8;">像App一样快速打开，无需输入网址</div>
+          </div>
+          <button id="pwa-install-btn" style="background: white; color: #6366F1; border: none; padding: 8px 18px; border-radius: 20px; font-weight: 700; font-size: 14px; cursor: pointer; white-space: nowrap;">安装</button>
+          <button id="pwa-close-btn" style="background: none; border: none; color: rgba(255,255,255,0.7); font-size: 20px; cursor: pointer; padding: 4px;">✕</button>
+        </div>
+      `;
+      document.body.appendChild(banner);
+
+      document.getElementById('pwa-install-btn').addEventListener('click', async () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const result = await deferredPrompt.userChoice;
+          console.log('PWA install:', result.outcome);
+          deferredPrompt = null;
+        }
+        banner.remove();
+      });
+
+      document.getElementById('pwa-close-btn').addEventListener('click', () => {
+        banner.remove();
+        localStorage.setItem('lwm_pwa_banner_closed', '1');
+      });
+    }
+
+    // 检测是否已在独立模式运行
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      console.log('App running in standalone mode');
+    }
+  </script>
+</body>
+</html>

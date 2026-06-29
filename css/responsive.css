@@ -1,0 +1,154 @@
+/* === 移动端响应式 === */
+
+/* 小屏幕设备 (< 480px) */
+@media (max-width: 480px) {
+  :root {
+    --space-lg: 16px;
+    --space-xl: 20px;
+    --space-2xl: 28px;
+    --space-3xl: 40px;
+  }
+
+  .container {
+    padding: 0 var(--space-sm);
+  }
+
+  .page-container {
+    padding-top: calc(var(--navbar-height) + var(--space-sm));
+  }
+
+  .question-card {
+    padding: var(--space-md);
+  }
+
+  .question-text {
+    font-size: var(--font-size-base);
+  }
+
+  .option-item {
+    padding: 12px 14px;
+  }
+
+  .option-text {
+    font-size: var(--font-size-sm);
+  }
+
+  .questionnaire-steps {
+    gap: 4px;
+  }
+
+  .q-step {
+    padding: 4px 6px;
+    font-size: 11px;
+  }
+
+  .q-step-separator {
+    width: 12px;
+  }
+
+  .navbar-brand span {
+    font-size: var(--font-size-sm);
+  }
+
+  .home-hero {
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+  }
+
+  .home-hero h1 {
+    font-size: var(--font-size-xl);
+  }
+
+  .home-hero p {
+    font-size: var(--font-size-sm);
+  }
+
+  .card {
+    padding: var(--space-md);
+  }
+
+  .score-number {
+    font-size: 48px;
+  }
+}
+
+/* 中等屏幕 (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .dim-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .report-dim-scores {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 平板 (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .dim-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .report-dim-scores {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .experts-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 桌面端 (> 1024px) */
+@media (min-width: 1025px) {
+  .dim-cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .experts-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* 触摸设备优化 */
+@media (hover: none) and (pointer: coarse) {
+  .card:hover {
+    transform: none;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .option-item {
+    min-height: 48px;
+  }
+
+  .btn {
+    min-height: 44px;
+  }
+}
+
+/* 打印样式 */
+@media print {
+  .navbar,
+  .bottom-nav,
+  .toast-container,
+  .modal-overlay,
+  .btn,
+  .tabs {
+    display: none !important;
+  }
+
+  .page-container {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .card {
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+    break-inside: avoid;
+  }
+
+  body {
+    background: #fff;
+    font-size: 12px;
+  }
+}
