@@ -12,8 +12,30 @@ const PRESET_REMINDERS = [
     color: '#EC4899',
     intervalDays: 42,
     nextDate: '2026-07-20',
-    remindBefore: 1, // 提前1天提醒
+    remindBefore: 1,
     notes: '每42天一次'
+  },
+  {
+    id: 'photon_facial',
+    title: '光子嫩肤',
+    category: 'beauty',
+    icon: 'fa-spa',
+    color: '#EC4899',
+    intervalDays: 30,
+    nextDate: '2026-07-25',
+    remindBefore: 1,
+    notes: '每月25日去美容院'
+  },
+  {
+    id: 'ultrasound_check',
+    title: '乳腺+甲状腺B超检查',
+    category: 'health',
+    icon: 'fa-heart',
+    color: '#10B981',
+    intervalDays: 90,
+    nextDate: '2026-09-27',
+    remindBefore: 1,
+    notes: '每3个月一次，今天(6/29)刚查完'
   }
 ];
 
