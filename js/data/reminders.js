@@ -36,8 +36,37 @@ const PRESET_REMINDERS = [
     nextDate: '2026-09-27',
     remindBefore: 1,
     notes: '每3个月一次，今天(6/29)刚查完'
+  },
+  {
+    id: 'weight_loss_plan',
+    title: '减肥计划：晨练+夜跑',
+    category: 'health',
+    icon: 'fa-fire',
+    color: '#F59E0B',
+    intervalDays: null,
+    nextDate: '2026-07-31',
+    remindBefore: 0,
+    notes: '6/29-7/31：早晨跟萍宝训练，晚上跑步(第1周3km→之后5km)，每周一体重'
   }
 ];
+
+// 减肥计划配置
+const WEIGHT_LOSS_PLAN = {
+  startDate: '2026-06-29',
+  endDate: '2026-07-31',
+  phases: [
+    { name: '适应期', start: '2026-06-29', end: '2026-07-05', morning: '跟萍宝训练', evening: '跑步3公里' },
+    { name: '提升期', start: '2026-07-06', end: '2026-07-12', morning: '跟萍宝训练', evening: '跑步5公里' },
+    { name: '冲刺期', start: '2026-07-13', end: '2026-07-31', morning: '跟萍宝训练', evening: '跑步5公里 + 称体重' }
+  ],
+  rules: [
+    '跑前热身5分钟 + 跑后拉伸5分钟',
+    '每周至少休息1天',
+    '每周一早晨空腹称体重',
+    '跑了3公里也比没跑强 — 不要因为没跑够就放弃'
+  ],
+  restDays: ['周日'] // 建议休息日
+};
 
 // 提醒类别
 const REMINDER_CATEGORIES = [

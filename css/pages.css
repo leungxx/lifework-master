@@ -799,6 +799,32 @@
   margin-bottom: var(--space-lg);
 }
 
+/* 减肥计划横幅 */
+.weight-loss-banner {
+  background: linear-gradient(135deg, #F59E0B, #EF4444);
+  color: #fff;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-lg);
+  text-align: center;
+}
+
+.weight-loss-badge {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  margin-bottom: 4px;
+  letter-spacing: 1px;
+}
+
+.weight-loss-info {
+  font-size: var(--font-size-xs);
+  opacity: 0.9;
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 /* 行动中心网格 */
 .action-grid {
   display: grid;

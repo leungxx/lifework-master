@@ -44,9 +44,28 @@ const ActionPage = {
     const morningDone = ritualLog.morning && ritualLog.morning.date === today;
     const eveningDone = ritualLog.evening && ritualLog.evening.date === today;
 
+    // 减肥计划：检查是否在计划期内
+    const weightLossInfo = this._getWeightLossInfo(today);
+
     return `
       <div class="container">
         <div class="action-page">
+          <!-- 减肥计划横幅 -->
+          ${weightLossInfo ? `
+          <div class="weight-loss-banner">
+            <div class="weight-loss-badge">🔥 减肥计划进行中</div>
+            <div class="weight-loss-info">
+              <span>${weightLossInfo.phaseName}</span>
+              <span>·</span>
+              <span>🌅 ${weightLossInfo.morning}</span>
+              <span>·</span>
+              <span>🌙 ${weightLossInfo.evening}</span>
+              <span>·</span>
+              <span>还剩 ${weightLossInfo.daysLeft} 天</span>
+            </div>
+          </div>
+          ` : ''}
+
           <!-- Streak 火焰 -->
           <div class="streak-bar">
             <div class="streak-flame ${streak >= 3 ? 'burning' : ''}">
@@ -346,5 +365,39 @@ const ActionPage = {
     if (overlay) overlay.remove();
     Pomodoro.reset();
     this.rerender();
+  },
+
+  // 减肥计划信息
+  _getWeightLossInfo(today) {
+    if (typeof WEIGHT_LOSS_PLAN === 'undefined') return null;
+
+    const plan = WEIGHT_LOSS_PLAN;
+    if (today < plan.startDate || today > plan.endDate) return null;
+
+    // 找到当前阶段
+    let currentPhase = null;
+    for (const phase of plan.phases) {
+      if (today >= phase.start && today <= phase.end) {
+        currentPhase = phase;
+        break;
+      }
+    }
+    if (!currentPhase) return null;
+
+    const end = new Date(plan.endDate + 'T00:00:00');
+    const now = new Date(today + 'T00:00:00');
+    const daysLeft = Math.ceil((end - now) / (1000 * 60 * 60 * 24));
+
+    // 检查是否是休息日
+    const weekDay = new Date(today + 'T00:00:00').getDay();
+    const isRestDay = plan.restDays.includes(['周日', '周一', '周二', '周三', '周四', '周五', '周六'][weekDay]);
+
+    return {
+      phaseName: currentPhase.name,
+      morning: currentPhase.morning,
+      evening: isRestDay ? '🛌 休息日' : currentPhase.evening,
+      daysLeft,
+      isRestDay
+    };
   }
 };
