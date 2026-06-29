@@ -1494,3 +1494,166 @@
     gap: 2px;
   }
 }
+
+/* ================================================================
+   效能教练页面样式
+   ================================================================ */
+
+.coach-page {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.coach-header {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.coach-avatar {
+  font-size: 48px;
+  margin-bottom: var(--space-sm);
+}
+
+.coach-step-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  border: 2px solid var(--color-border-light);
+  margin-bottom: var(--space-lg);
+  animation: fadeIn 0.3s ease;
+}
+
+.coach-step-num {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-sm);
+}
+
+.coach-step-title {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  margin-bottom: var(--space-xs);
+}
+
+.coach-step-hint {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-lg);
+}
+
+.coach-nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* 选项卡片 */
+.coach-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: 14px 18px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  margin-bottom: var(--space-sm);
+}
+
+.coach-option:hover {
+  border-color: var(--color-primary-light);
+  background: var(--color-primary-bg);
+}
+
+.coach-option.selected {
+  border-color: var(--color-primary);
+  background: var(--color-primary-bg);
+  font-weight: 600;
+}
+
+.coach-option-icon {
+  font-size: 22px;
+  width: 32px;
+  text-align: center;
+}
+
+/* 未完成任务列表 */
+.unfinished-list {
+  margin-bottom: var(--space-md);
+}
+
+.unfinished-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+  cursor: pointer;
+}
+
+.unfinished-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-primary);
+}
+
+/* 教练结果 */
+.coach-result-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  border: 2px solid var(--color-primary-light);
+}
+
+.coach-advice-section {
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+  border-left: 3px solid var(--color-primary);
+  background: var(--color-primary-bg);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+.coach-advice-section h4 {
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.coach-advice-text {
+  font-size: var(--font-size-sm);
+  line-height: 1.7;
+  color: var(--color-text);
+}
+
+.coach-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+  margin: var(--space-lg) 0;
+  padding: var(--space-md);
+  background: var(--color-bg-alt);
+  border-radius: var(--radius-md);
+}
+
+.coach-summary-item {
+  text-align: center;
+}
+
+.coach-closing {
+  text-align: center;
+  font-style: italic;
+  color: var(--color-text-secondary);
+  margin: var(--space-lg) 0;
+  padding: var(--space-md);
+}
+
+.coach-history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+@media (max-width: 768px) {
+  .coach-summary-grid {
+    grid-template-columns: 1fr;
+  }
+}

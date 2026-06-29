@@ -4,14 +4,11 @@
 
 const CONFIG = {
   APP_NAME: 'LifeWork Master',
-  APP_VERSION: '1.0.0',
+  APP_VERSION: '2.0.0',
   STORAGE_PREFIX: 'lwm_',
 
   // 存储键名
   STORAGE_KEYS: {
-    USER_PROFILE: 'user_profile',
-    QUESTIONNAIRE_PROGRESS: 'questionnaire_progress',
-    ASSESSMENT_HISTORY: 'assessment_history',
     SETTINGS: 'settings',
     LAST_ACTIVE_PAGE: 'last_active_page',
     CHECKIN_DATA: 'checkin_data',
@@ -31,22 +28,12 @@ const CONFIG = {
     { id: 'goal', name: '目标管理', icon: 'fa-bullseye', color: '#EF4444', colorLight: '#F87171' }
   ],
 
-  // 等级评定
-  GRADES: [
-    { min: 85, key: 'excellent', label: '优秀', color: 'grade-excellent' },
-    { min: 70, key: 'good', label: '良好', color: 'grade-good' },
-    { min: 55, key: 'fair', label: '一般', color: 'grade-fair' },
-    { min: 0, key: 'poor', label: '需改善', color: 'grade-poor' }
-  ],
-
   // 页面路由
   ROUTES: {
     home: { path: '#/', title: '仪表盘', icon: 'fa-chart-pie' },
-    questionnaire: { path: '#/questionnaire', title: '评估问卷', icon: 'fa-clipboard-list' },
-    report: { path: '#/report', title: '综合报告', icon: 'fa-file-alt' },
-    experts: { path: '#/experts', title: '专家面板', icon: 'fa-user-md' },
     checkin: { path: '#/checkin', title: '每日打卡', icon: 'fa-calendar-check' },
     action: { path: '#/action', title: '行动中心', icon: 'fa-bolt' },
-    reminders: { path: '#/reminders', title: '提醒中心', icon: 'fa-bell' }
+    reminders: { path: '#/reminders', title: '提醒中心', icon: 'fa-bell' },
+    coach: { path: '#/coach', title: '效能教练', icon: 'fa-user-tie' }
   }
 };

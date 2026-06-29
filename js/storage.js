@@ -50,51 +50,6 @@ class Storage {
     }
   }
 
-  // --- 用户画像 ---
-  static saveProfile(profile) {
-    return this.save(CONFIG.STORAGE_KEYS.USER_PROFILE, profile);
-  }
-
-  static loadProfile() {
-    return this.load(CONFIG.STORAGE_KEYS.USER_PROFILE);
-  }
-
-  // --- 问卷进度 ---
-  static saveQuestionnaireProgress(progress) {
-    return this.save(CONFIG.STORAGE_KEYS.QUESTIONNAIRE_PROGRESS, progress);
-  }
-
-  static loadQuestionnaireProgress() {
-    return this.load(CONFIG.STORAGE_KEYS.QUESTIONNAIRE_PROGRESS);
-  }
-
-  static clearQuestionnaireProgress() {
-    return this.remove(CONFIG.STORAGE_KEYS.QUESTIONNAIRE_PROGRESS);
-  }
-
-  // --- 评估历史 ---
-  static saveAssessmentHistory(history) {
-    return this.save(CONFIG.STORAGE_KEYS.ASSESSMENT_HISTORY, history);
-  }
-
-  static loadAssessmentHistory() {
-    return this.load(CONFIG.STORAGE_KEYS.ASSESSMENT_HISTORY) || [];
-  }
-
-  static addAssessment(assessment) {
-    const history = this.loadAssessmentHistory();
-    history.push({
-      ...assessment,
-      id: Date.now(),
-      createdAt: new Date().toISOString()
-    });
-    // 保留最近10次
-    if (history.length > 10) {
-      history.splice(0, history.length - 10);
-    }
-    return this.saveAssessmentHistory(history);
-  }
-
   // --- 用户设置 ---
   static saveSettings(settings) {
     return this.save(CONFIG.STORAGE_KEYS.SETTINGS, settings);
@@ -359,5 +314,21 @@ class Storage {
       const remindDate = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
       return remindDate === dateStr;
     });
+  }
+
+  // --- 效能教练 ---
+  static loadCoachData() {
+    return this.load('coach_data') || {};
+  }
+
+  static saveCoachData(dateStr, entry) {
+    const data = this.loadCoachData();
+    data[dateStr] = entry;
+    // 保留最近90天
+    const dates = Object.keys(data).sort();
+    if (dates.length > 90) {
+      dates.slice(0, dates.length - 90).forEach(d => delete data[d]);
+    }
+    return this.save('coach_data', data);
   }
 }

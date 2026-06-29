@@ -3,7 +3,7 @@
 // 提供离线缓存和类App体验
 // ============================================================
 
-const CACHE_NAME = 'lifework-v1';
+const CACHE_NAME = 'lifework-v2';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
@@ -21,30 +21,25 @@ const ASSETS_TO_CACHE = [
   '/js/utils/format.js',
   '/js/utils/charts.js',
   '/js/data/dimensions.js',
-  '/js/data/experts.js',
-  '/js/data/questionnaire.js',
   '/js/data/checkin.js',
   '/js/data/tasks.js',
-  '/js/engine/scoring.js',
-  '/js/engine/analysis.js',
-  '/js/engine/coordinator.js',
+  '/js/data/reminders.js',
+  '/js/data/coach.js',
   '/js/components/toast.js',
   '/js/components/modal.js',
   '/js/components/progress-ring.js',
   '/js/components/navbar.js',
   '/js/components/bottom-nav.js',
   '/js/components/dimension-card.js',
-  '/js/components/expert-card.js',
   '/js/components/checkin-card.js',
   '/js/components/task-card.js',
   '/js/components/pomodoro.js',
   '/js/components/ritual.js',
   '/js/pages/home.js',
-  '/js/pages/questionnaire.js',
-  '/js/pages/report.js',
-  '/js/pages/experts.js',
   '/js/pages/checkin.js',
   '/js/pages/action.js',
+  '/js/pages/reminders.js',
+  '/js/pages/coach.js',
   '/js/pages/not-found.js',
   '/js/router.js',
   '/js/app.js',
